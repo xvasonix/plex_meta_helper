@@ -55,7 +55,7 @@ Plex Web UI를 강화하는 Tampermonkey 유저스크립트입니다. Plex 컨�
 ## 설치 방법
 
 1.  [Tampermonkey](https://www.tampermonkey.net/) 설치: https://www.tampermonkey.net/ (베타버전 추천)
-2.  이 스크립트의 **[설치 링크](https://raw.githubusercontent.com/golmog/plex_meta_helper/main/plex_meta_helper.user.js)**를 클릭하여 Tampermonkey에 설치합니다.(설치 후 확장프로그램 관리에서 실행 권한 체크 필요)
+2.  이 스크립트의 **[설치 링크](https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/plex_meta_helper.user.js)**를 클릭하여 Tampermonkey에 설치합니다.(설치 후 확장프로그램 관리에서 실행 권한 체크 필요)
 3.  운영체제에 맞는 실행 스크립트를 다운로드 받고 본인 환경에 맞게 수정합니다.
 4.  헬퍼가 반환하는 URL 형식(외부재생: `plexplay://` / 스트림재생: `plexstream://` / 폴더열기: `plexfolder://`)을 열 수 있도록 환경 설정 작업을 해야 합니다.
 
@@ -163,3 +163,4 @@ Plex 웹 UI에서 Tampermonkey 아이콘을 클릭한 후, `PMH 설정 (JSON)` �
 | `PLEX_MATE_APIKEY`                     | `plex_mate` API를 사용하기 위한 API 키를 입력합니다. |
 | `PLEX_MATE_CALLBACK_ID`                | `plex_mate` 로그에 표시될 작업 요청자 ID입니다. |
 | `PLEX_MATE_SCAN_TYPE`                  | 경로 스캔 시 사용할 스캔 방식을 선택합니다. `"web"`으로 지정시 Plex web 방식 스캔으로 요청합니다. |
+
