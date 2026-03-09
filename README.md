@@ -151,7 +151,7 @@ v0.6.14 (2026-02-27)
 ## 설치 방법
 
 1.  [Tampermonkey](https://www.tampermonkey.net/) 설치: https://www.tampermonkey.net/ (베타버전 추천)
-2.  이 스크립트의 **[설치 링크](https://raw.githubusercontent.com/golmog/plex_meta_helper/main/plex_meta_helper.user.js)**를 클릭하여 Tampermonkey에 설치합니다.(설치 후 확장프로그램 관리에서 실행 권한 체크 필요)
+2.  이 스크립트의 **[설치 링크](https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/plex_meta_helper.user.js)**를 클릭하여 Tampermonkey에 설치합니다.(설치 후 확장프로그램 관리에서 실행 권한 체크 필요)
 3.  운영체제에 맞는 실행 스크립트를 다운로드 받고 본인 환경에 맞게 수정합니다.
 4.  헬퍼가 반환하는 URL 형식(외부재생: `plexplay://` / 스트림재생: `plexstream://` / 폴더열기: `plexfolder://`)을 열 수 있도록 환경 설정 작업을 해야 합니다.
 5. `pmh_server.py`가 항상 실행되는 환경이 필요합니다(FF 내 `Command` 이용 추천. 포트(기본: 8899, 서버 스크립트 내에서 설정 가능) 오픈 필요).
@@ -274,3 +274,4 @@ update-desktop-database ~/.local/share/applications/
 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -f /Applications/PlexHelper.app
 ```
 macOS는 시스템에 **Python 3 필요**하고, 현재 테스트가 충분하지 않습니다.
+
