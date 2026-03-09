@@ -3,10 +3,10 @@
 // @namespace    https://tampermonkey.net/
 // @version      0.6.37
 // @description  Plex Web UI 개선 스크립트
-// @author       golmog
-// @supportURL   https://github.com/golmog/plex_meta_helper/issues
-// @updateURL    https://raw.githubusercontent.com/golmog/plex_meta_helper/main/plex_meta_helper.user.js
-// @downloadURL  https://raw.githubusercontent.com/golmog/plex_meta_helper/main/plex_meta_helper.user.js
+// @author       xvasonix
+// @supportURL   https://github.com/xvasonix/plex_meta_helper/issues
+// @updateURL    https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/plex_meta_helper.user.js
+// @downloadURL  https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/plex_meta_helper.user.js
 // @match        https://app.plex.tv/*
 // @match        https://*.plex.tv/web/index.html*
 // @match        https://*.plex.direct/*
@@ -108,7 +108,7 @@ GM_addStyle(`
 
     .plex-list-play-external:hover, .friend-fetch-btn:hover { background-color: rgba(0, 0, 0, 0.9) !important; color: #ffffff !important; transform: scale(1.1) !important; opacity: 1 !important; }
 
-    .plex-guid-list-box { display: inline; margin-left: 5px; color: #e5a00d; font-size: 11px; font-weight: normal; cursor: pointer; text-decoration: none; white-space: nowrap; transition: color 0.2s ease, text-decoration 0.2s ease; }
+    .plex-guid-list-box { display: inline; margin-left: 5px; font-size: 12px; font-weight: 500; cursor: pointer; text-decoration: none; white-space: nowrap; transition: color 0.2s ease, text-decoration 0.2s ease; }
     .plex-guid-list-box:hover { text-decoration: underline !important; color: #ffc107 !important; opacity: 1 !important; text-shadow: 0 0 2px rgba(255,193,7,0.5); }
 
     /* 컨트롤 UI */
@@ -134,7 +134,8 @@ GM_addStyle(`
     /* 손상 의심 파일(?) 오렌지색 에러 뱃지 전용 스타일 */
     .pmh-corrupt-badge { color: #e5a00d !important; font-weight: 900 !important; font-size: 11.5px !important; padding: 0px 5px !important; right: 2px; transform: scaleX(1.3); transform-origin: center; display: inline-block; letter-spacing: -1px; }
 
-    .pmh-match-badge { display: block; width: max-content; background-color: rgba(0, 0, 0, 0.8); color: #e5a00d; border: 1px solid rgba(229, 160, 13, 0.4); font-size: 11px; font-weight: normal; padding: 2px 5px; border-radius: 4px; margin: 0; line-height: 1.2; letter-spacing: -0.2px; box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .pmh-match-badge { display: inline-block; font-size: 11px; font-weight: bold; padding: 1px 4px; margin-right: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); font-family: 'Consolas', monospace; vertical-align: middle; line-height: 1.2; }
+    .match-name { vertical-align: middle; }
 `);
 
 (function() {
@@ -173,7 +174,7 @@ GM_addStyle(`
     // 1. 설정 및 로깅 / 업데이트 체크
     // ==========================================
     const CURRENT_VERSION = "0.6.37";
-    const INFO_YAML_URL = "https://raw.githubusercontent.com/golmog/plex_meta_helper/main/info.yaml";
+    const INFO_YAML_URL = "https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/info.yaml";
     const SETTINGS_KEY = 'pmh_server_final_settings';
 
     function isIgnoredItem(url, iid) {
@@ -467,6 +468,23 @@ GM_addStyle(`
         return { ...defaultSettings, ...saved };
     }
     const AppSettings = getSettings();
+
+    // ==========================================
+    // 색상 지정 유틸리티 (0.5.10 포크 이식 부분)
+    // ==========================================
+    function getTitleColor(displayGuidText) {
+        if (!displayGuidText || displayGuidText.length < 2) return '#e5a00d';
+        const secondChar = displayGuidText.charAt(1).toUpperCase();
+        switch (secondChar) {
+            case 'D': return '#FAE200';
+            case 'T': return '#10B6DE';
+            case 'W': return '#3264FF';
+            case 'V': return '#FF153C';
+            case 'X': return '#FF43AD';
+            case 'S': return '#816BFF';
+            default: return '#e5a00d';
+        }
+    }
 
     function getLocalTime() {
         const d = new Date();
@@ -1114,7 +1132,7 @@ GM_addStyle(`
             <div id="pmh-status-message" style="margin-right: 5px; font-size: 11px; font-weight: bold; white-space: nowrap; transition: color 0.3s;"></div>
             <div style="display:flex; align-items:center; margin-right: 8px;">
                 <a href="#" id="pmh-manual-update-btn" style="color:#adb5bd; font-size:12px; margin-right:12px; transition:0.2s;" title="업데이트 확인" onmouseover="this.style.color='white'" onmouseout="this.style.color='#adb5bd'"><i class="fas fa-sync-alt pmh-sync-icon"></i></a>
-                <a href="https://github.com/golmog/plex_meta_helper" target="_blank" style="color:white; font-size:16px; transition:0.2s;" title="PMH GitHub 페이지" onmouseover="this.style.color='#e5a00d'" onmouseout="this.style.color='white'"><i class="fab fa-github"></i></a>
+                <a href="https://github.com/xvasonix/plex_meta_helper" target="_blank" style="color:white; font-size:16px; transition:0.2s;" title="PMH GitHub 페이지" onmouseover="this.style.color='#e5a00d'" onmouseout="this.style.color='white'"><i class="fab fa-github"></i></a>
             </div>
         `);
 
@@ -1216,7 +1234,7 @@ GM_addStyle(`
                     if (needsJsUpdate) {
                         showStatusMsg(`서버 완료! 스크립트를 업데이트합니다...`, '#51a351', 3000);
                         setTimeout(() => {
-                            window.open("https://raw.githubusercontent.com/golmog/plex_meta_helper/main/plex_meta_helper.user.js", "_blank");
+                            window.open("https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/plex_meta_helper.user.js", "_blank");
                         }, 1500);
                     }
                     defaultMsg = '';
@@ -1456,8 +1474,7 @@ GM_addStyle(`
 
             const gBox = document.createElement('span');
             gBox.className = 'plex-guid-list-box';
-            gBox.style.cssText = "font-size: 11px; font-weight: normal; cursor: pointer; display: inline-block; vertical-align: top;";
-
+            gBox.style.cssText = "font-size: 12px; font-weight: 500; cursor: pointer; display: inline-block; vertical-align: top;";
             if (info.g) {
                 short = info.g.length > currentLen ? info.g.substring(0, currentLen) + '...' : info.g;
                 gBox.textContent = short;
@@ -1478,6 +1495,7 @@ GM_addStyle(`
                 }
 
                 if (isUnmatched) gBox.style.color = '#a68241';
+                else gBox.style.color = getTitleColor(short);
             } else {
                 gBox.innerHTML = `<i class="fas fa-spinner fa-spin" style="margin-right:4px;"></i>로딩 중...`;
                 gBox.style.color = '#adb5bd';
@@ -1507,7 +1525,7 @@ GM_addStyle(`
                                 if (info.g) {
                                     gBox.textContent = short;
                                     gBox.title = `${info.g} : 클릭 시 재조회`;
-                                    gBox.style.color = isUnmatched ? '#a68241' : '#e5a00d';
+                                    gBox.style.color = isUnmatched ? '#a68241' : getTitleColor(short);
                                 } else {
                                     gBox.innerHTML = `<i class="fas fa-redo" style="margin-right:4px;"></i>재시도`;
                                     gBox.title = `클릭 시 데이터 다시 불러오기`;
@@ -1665,7 +1683,7 @@ GM_addStyle(`
                         if (gBox.isConnected) {
                             gBox.innerHTML = originHTML;
                             gBox.title = info.g ? `${info.g} : 클릭 시 재조회` : `클릭 시 강제 새로고침`;
-                            gBox.style.color = info.g ? '#a68241' : '#adb5bd';
+                            gBox.style.color = info.g ? getTitleColor(short) : '#adb5bd';
                             delete gBox.dataset.refreshing;
                         }
                     }, 2000);
@@ -3316,7 +3334,11 @@ GM_addStyle(`
                     badge.textContent = displayGuid;
                     badge.title = `${fullGuid}`;
 
-                    nameEl.insertAdjacentElement('afterend', badge);
+                    const idColor = getTitleColor(displayGuid);
+                    badge.style.color = idColor;
+                    badge.style.borderColor = idColor;
+
+		    nameEl.parentNode.insertBefore(badge, nameEl);
                 }
             });
         } catch (e) {
