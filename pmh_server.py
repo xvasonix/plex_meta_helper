@@ -21,8 +21,8 @@ except ImportError:
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE = os.path.join(BASE_DIR, "pmh_config.yaml")
 
-CORE_URL = "https://raw.githubusercontent.com/golmog/plex_meta_helper/main/pmh_core.py"
-SERVER_URL = "https://raw.githubusercontent.com/golmog/plex_meta_helper/main/pmh_server.py"
+CORE_URL = "https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/pmh_core.py"
+SERVER_URL = "https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/pmh_server.py"
 
 DEFAULT_CONFIG = {
     "PLEX_DB_PATH": "/path/to/your/com.plexapp.plugins.library.db",
