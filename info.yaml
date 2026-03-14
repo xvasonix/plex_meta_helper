@@ -1,7 +1,17 @@
 title: "Plex Meta Helper(PMH)"
-version: "0.7.45"
+version: "0.7.46-server"
 package_name: "plex_meta_helper"
 developer: "xvasonix"
 description: "Plex Web UI 개선 스크립트 (원작자: golmog)"
 home: "https://github.com/xvasonix/plex_meta_helper"
 more: "https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/README.md"
+bundled_tools:
+  - id: "batch_scanner"
+    url: "https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/tools/batch_scanner/info.yaml"
+  - id: "library_stats"
+    url: "https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/tools/library_stats/info.yaml"
+  - id: "multipath_finder"
+    url: "https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/tools/multipath_finder/info.yaml"
+  - id: "smart_scanner"
+    url: "https://raw.githubusercontent.com/xvasonix/plex_meta_helper/main/tools/smart_scanner/info.yaml"
+>>>>>>> upstream/main
